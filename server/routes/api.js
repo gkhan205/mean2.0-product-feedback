@@ -40,6 +40,8 @@ router.route('/posts')
     
     console.log(post.text);
 
+    return res.json({req: req.body});
+
     // post.save(function(err, post) {
     //   if (err){
     //     return res.send(500, err);
