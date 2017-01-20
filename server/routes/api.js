@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var mongoose = require( 'mongoose' );
-var Feed = mongoose.model('Feed');
+var Feed = require('../models/feeds');
 
 // declare axios for making http requests
 // const axios = require('axios');
@@ -29,22 +29,23 @@ router.route('/posts')
   //creates a new post
   .post(function(req, res){
 
-    var post = new Feed();
-    post.text = req.body.text;
-    console.log(post.text);
-    
-    post.res1 = req.body.res1;
-    post.res2 = req.body.res2;
-    post.res3 = req.body.res3;
-    post.res4 = req.body.res4;
-    post.created_by = req.body.created_by;
-
-    post.save(function(err, post) {
-      if (err){
-        return res.send(500, err);
-      }
-      return res.json(post);
+    var post = new Feed({
+      text: req.body.text,
+      res1: req.body.res1,
+      res2: req.body.res2,
+      res3: req.body.res3,
+      res4: req.body.res4,
+      user: req.body.user
     });
+    
+    console.log(post.text);
+
+    // post.save(function(err, post) {
+    //   if (err){
+    //     return res.send(500, err);
+    //   }
+    //   return res.json(post);
+    // });
   })
   //gets all posts
   .get(function(req, res){

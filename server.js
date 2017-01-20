@@ -1,30 +1,47 @@
 // Get dependencies
-const express = require('express');
-const path = require('path');
-const http = require('http');
-const bodyParser = require('body-parser');
+var express = require('express');
+var path = require('path');
+var http = require('http');
+var session = require('express-session');
+var cookie = require('cookie-parser');
+var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/feedback-app');
-require('./server/models/models.js');
+var app = express();
 
-// var table = r.table("users");
-// console.log(table);
+mongoose.connect('mongodb://localhost/feedback-app', function(err, conn){
+	if(err){
+		console.log('DB Not Connected');
+	} else{
+		console.log('DB Connected');
+	}
+});
 
-// Get our API routes
-const api = require('./server/routes/api');
-
-const app = express();
+var feeds = require('./server/models/feeds');
+var user = require('./server/models/user');
 
 // Parsers for POST data
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+// Get our API routes
+var api = require('./server/routes/api');
+var user = require('./server/routes/user');
+
+
+
+// app.use(function (req, res) {
+//   res.setHeader('Content-Type', 'text/plain')
+//   res.end(JSON.stringify(req.body, null, 2))
+// })
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Set our api routes
 app.use('/api', api);
+app.use('/users', user);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
@@ -34,13 +51,13 @@ app.get('*', (req, res) => {
 /**
  * Get port from environment and store in Express.
  */
-const port = process.env.PORT || '3000';
+var port = process.env.PORT || '3000';
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
