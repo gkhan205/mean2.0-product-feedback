@@ -3,6 +3,13 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/feedback-app');
+require('./server/models/models.js');
+
+// var table = r.table("users");
+// console.log(table);
 
 // Get our API routes
 const api = require('./server/routes/api');
