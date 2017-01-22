@@ -18,30 +18,31 @@ mongoose.connect('mongodb://localhost/feedback-app', function(err, conn){
 });
 
 var feeds = require('./server/models/feeds');
-var user = require('./server/models/user');
+var users = require('./server/models/user');
 
 // Parsers for POST data
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookie());
 
 
 // Get our API routes
 var api = require('./server/routes/api');
-var user = require('./server/routes/user');
-
-
-
-// app.use(function (req, res) {
-//   res.setHeader('Content-Type', 'text/plain')
-//   res.end(JSON.stringify(req.body, null, 2))
-// })
+var users = require('./server/routes/user');
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
+//Express Sessions
+app.use(session({
+	secret: 'secret',
+	saveUnintialized: true,
+	resave: true
+}));
+
 // Set our api routes
 app.use('/api', api);
-app.use('/users', user);
+app.use('/users', users);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

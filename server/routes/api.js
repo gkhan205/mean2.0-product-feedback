@@ -2,27 +2,18 @@ const express = require('express');
 const router = express.Router();
 var mongoose = require( 'mongoose' );
 var Feed = require('../models/feeds');
+var jwt = require('jsonwebtoken');
 
-// declare axios for making http requests
-// const axios = require('axios');
-// const API = 'https://jsonplaceholder.typicode.com';
-
-/* GET api listing. */
-router.get('/', (req, res) => {
-  res.send('api works');
-});
-
-// Get all posts
-// router.get('/posts', (req, res) => {
-//   // Get posts from the mock api
-//   // This should ideally be replaced with a service that connects to MongoDB
-//   axios.get(`${API}/posts`)
-//     .then(posts => {
-//       res.status(200).json(posts.data);
-//     })
-//     .catch(error => {
-//       res.status(500).send(error)
-//     });
+// router.use('/', function(req, res, next){
+//   jwt.verify(req.query.token, 'secret', function(err, decoded){
+//     if(err){
+//       return res.status(401).json({
+//         title: 'Not Authorised',
+//         error: err
+//       });
+//     }
+//     next();
+//   })
 // });
 
 router.route('/posts')
@@ -38,20 +29,20 @@ router.route('/posts')
       user: req.body.user
     });
     
-    console.log(post.text);
+    console.log(req.body);
 
-    // post.save(function(err, post) {
-    //   if (err){
-    //     return res.send(500, err);
-    //   }
-    //   return res.json(post);
-    // });
+   // return res.json({req: req.body});
+
+    post.save(function(err, post) {
+      if (err){
+        return res.send(500, err);
+      }
+      return res.json(req.body);
+    });
   })
   //gets all posts
   .get(function(req, res){
-    console.log('debug1');
     Feed.find(function(err, feeds){
-      console.log('debug2');
       if(err){
         return res.send(500, err);
       }

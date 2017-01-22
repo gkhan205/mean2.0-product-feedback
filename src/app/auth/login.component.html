@@ -1,0 +1,17 @@
+<div class="col-md-6 col-sm-offset-3"> 
+  <h2 class="lead text-center">Login to Feedback Panel</h2> 
+  <form class="form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <input type="text" class="form-control" formControlName="username" placeholder="Username">
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" formControlName="password" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Login Now!</button>
+    </div>
+  </form>
+  <div class="row spacing">
+    <a [routerLink]="['/register']">Don't have an account? Register Here!</a>
+  </div>
+</div>
