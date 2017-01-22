@@ -20,6 +20,7 @@ export class FeedbackInputComponent implements OnInit {
 				data => console.log(data),
 				error => console.error(error)
 			)
+			this.myForm.reset();
 	}
 
 	ngOnInit(){

@@ -495,6 +495,7 @@ var FeedbackInputComponent = (function () {
         var feedback = new __WEBPACK_IMPORTED_MODULE_3__feedback_model__["a" /* Feedback */](this.myForm.value.res1, this.myForm.value.res2, this.myForm.value.res3, this.myForm.value.res4, this.myForm.value.text);
         this.feedbackService.addNewPost(feedback)
             .subscribe(function (data) { return console.log(data); }, function (error) { return console.error(error); });
+        this.myForm.reset();
     };
     FeedbackInputComponent.prototype.ngOnInit = function () {
         this.myForm = new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormGroup */]({
