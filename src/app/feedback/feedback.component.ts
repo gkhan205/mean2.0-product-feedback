@@ -9,6 +9,10 @@ import { FeedbackService } from './feedback.service';
 export class FeedbackComponent implements OnInit {
 
 feeds: any = [];
+users: any[];
+
+name = localStorage.getItem('name');
+
 
   constructor(private feedbackService: FeedbackService) { }
 
@@ -17,6 +21,9 @@ feeds: any = [];
     this.feedbackService.getAllPosts().subscribe(feeds => {
       this.feeds = feeds;
     });
-  }
 
+    this.feedbackService.getAllUsers().subscribe(users => {
+      this.users = users;
+    });
+  }
 }

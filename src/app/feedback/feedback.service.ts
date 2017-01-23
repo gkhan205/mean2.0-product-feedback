@@ -25,4 +25,9 @@ export class FeedbackService {
   		.catch((error: Response) => Observable.throw(error.json()));
   }
 
+  getAllUsers(){
+    return this.http.get('/users')
+      .map(res => res.json());
+  }
+
 }

@@ -10,7 +10,8 @@ var schema = new Schema({
 	username:{type: String, require: true, unique: true},
 	password:{type: String, require: true},
 	location:{type: String, require: true},
-	admin:{type: Boolean},
+	role:{type: String, require: true, default: 1},
+    created_at: {type: Date, default: Date.now}
 	// feedback: [{type: Schema.Types.ObjectId, ref:'Feed'}]
 });
 

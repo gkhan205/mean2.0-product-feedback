@@ -17,7 +17,15 @@ export class LoginComponent implements OnInit {
 		this.authService.signin(user)
 			.subscribe(
 				data => {
-					this.router.navigateByUrl('/feedback'); localStorage.setItem('userId', data.userId); localStorage.setItem('token', data.token);
+					if(data.user.role == 1){
+						this.router.navigateByUrl('/feedback'); 
+					} else if (data.user.role == 2){
+						this.router.navigateByUrl('/feeds'); 
+					}
+					localStorage.setItem('userId', data.user._id); 
+					localStorage.setItem('userName', data.user.username); 
+					localStorage.setItem('name', data.user.name); 
+					localStorage.setItem('token', data.token);
 				},
 				error => console.error(error)
 			);

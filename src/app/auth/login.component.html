@@ -1,6 +1,6 @@
-<div class="col-md-6 col-sm-offset-3"> 
+<div class="col-md-4 col-sm-offset-4"> 
   <h2 class="lead text-center">Login to Feedback Panel</h2> 
-  <form class="form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <form class="form-horizontal text-center" [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <input type="text" class="form-control" formControlName="username" placeholder="Username">
     </div>
@@ -11,7 +11,7 @@
         <button type="submit" class="btn btn-success">Login Now!</button>
     </div>
   </form>
-  <div class="row spacing">
+  <!-- <div class="row spacing">
     <a [routerLink]="['/register']">Don't have an account? Register Here!</a>
-  </div>
+  </div> -->
 </div>

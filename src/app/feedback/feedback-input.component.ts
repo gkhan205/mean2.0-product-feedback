@@ -13,8 +13,11 @@ export class FeedbackInputComponent implements OnInit {
 	myForm: FormGroup;
 	constructor(private feedbackService: FeedbackService) {}
 
+	user = localStorage.getItem('userId');
+	name = localStorage.getItem('name');
+
 	onSubmit(myForm: FormGroup){
-		const feedback = new Feedback(this.myForm.value.res1, this.myForm.value.res2, this.myForm.value.res3, this.myForm.value.res4, this.myForm.value.text);
+		const feedback = new Feedback(this.myForm.value.res1, this.myForm.value.res2, this.myForm.value.res3, this.myForm.value.res4, this.myForm.value.text, this.user);
 		this.feedbackService.addNewPost(feedback)
 			.subscribe(
 				data => console.log(data),

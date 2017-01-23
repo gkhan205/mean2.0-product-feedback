@@ -3,6 +3,7 @@ const router = express.Router();
 var mongoose = require( 'mongoose' );
 var Feed = require('../models/feeds');
 var jwt = require('jsonwebtoken');
+var User = require('../models/user');
 
 // router.use('/', function(req, res, next){
 //   jwt.verify(req.query.token, 'secret', function(err, decoded){
@@ -19,6 +20,15 @@ var jwt = require('jsonwebtoken');
 router.route('/posts')
   //creates a new post
   .post(function(req, res){
+    // var decoded = jwt.decode(req.query.token);
+    // User.findById(decoded.user._id, function(err, user){
+    //   if(err){
+    //     return res.status(500).json({
+    //       title: 'An error occured',
+    //       error: err
+    //     });
+    //   }
+    // });
 
     var post = new Feed({
       text: req.body.text,
@@ -34,20 +44,22 @@ router.route('/posts')
    // return res.json({req: req.body});
 
     post.save(function(err, post) {
-      if (err){
-        return res.send(500, err);
-      }
-      return res.json(req.body);
-    });
-  })
+        if (err){
+          return res.send(500, err);
+        }
+        return res.json(req.body);
+      });
+    })
   //gets all posts
   .get(function(req, res){
-    Feed.find(function(err, feeds){
-      if(err){
-        return res.send(500, err);
-      }
-      return res.send(200,feeds);
-    });
+    Feed.find()
+      .populate('user', 'name')
+      .exec(function(err, feeds){
+        if(err){
+          return res.send(500, err);
+        }
+        return res.send(200,feeds);
+      });
   });
 
 //post-specific commands. likely won't be used

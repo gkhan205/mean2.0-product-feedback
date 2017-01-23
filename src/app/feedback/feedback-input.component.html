@@ -1,10 +1,13 @@
+<h2>Welcome, {{name}}</h2>
+
 <div class="col-md-6"> 
-  <h2 class="lead text-center">Provide us your feedback</h2> 
+  <h2 class="lead">Provide us your feedback</h2> 
   <form class="form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
     1. How convenient is the product to use?
     <br>
-      <select class="form-control" formControlName="res1">
+      <select class="form-control" formControlName="res1" required>
+        <option>Select out of 5</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -15,7 +18,8 @@
     <div class="form-group">
     2. What do you say about the build quality?
      <br>
-      <select class="form-control" formControlName="res2">
+      <select class="form-control" formControlName="res2" required>
+        <option>Select out of 5</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -26,7 +30,8 @@
     <div class="form-group">
     3. How was the packaging of the product? 
       <br>
-      <select class="form-control" formControlName="res3">
+      <select class="form-control" formControlName="res3" required>
+        <option>Select out of 5</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -37,7 +42,8 @@
     <div class="form-group">
     4. What is your overall feedback about the product? 
       <br>
-      <select class="form-control" formControlName="res4">
+      <select class="form-control" formControlName="res4" required>
+        <option>Select out of 5</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -46,7 +52,7 @@
       </select>
     </div>
     <div class="form-group">
-       <input type="text" class="form-control" formControlName="text" placeholder="Write a short message/feedback">
+       <textarea class="form-control" formControlName="text" rows="5" placeholder="Write a short message/feedback"></textarea>
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-success">Submit Your Feedback!</button>

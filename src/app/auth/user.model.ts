@@ -4,7 +4,7 @@ export class User{
 				public password: string,
 				public name?: string,
 				public location?: string,
-				public admin?: boolean) {
+				public role?: number) {
 		// code...
 	}
 }

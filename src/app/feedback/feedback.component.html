@@ -1,12 +1,66 @@
-{{username}}
+<h2>Welcome, {{name}}</h2>
+<hr>
 
 <div class="container">
-  <div class="row" *ngFor="let post of feeds">
-    <div class="card card-block">
-      <h4 class="card-title">{{ post.text }}</h4>
-      <p class="card-text">{{post.res1}}</p>
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
-    </div>
-  </div>
+	<div class="row spacing">
+	<div class="col-md-12">
+			<div class="table-responsive">
+			<button class="btn btn-success pull-left" [routerLink]="['/register']">Add New User</button>
+			<br><br>
+				<h4>Users List</h4>
+				<table class="table table-striped table-bordered">
+					<thead>
+					<tr>
+						<th>Name</th>
+						<th>Login Name</th>
+						<th>Location</th>
+						<th>Created At</th>
+						<th>Action</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let user of users">
+							<td>{{user.name}}</td>
+							<td>{{user.username}}</td>
+							<td>{{user.location}}</td>	
+							<th>{{user.created_at | date:'mediumDate'}}</th>					
+							<td>
+								<button class="btn btn-primary">Edit</button>
+								<button class="btn btn-danger">Delete</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="table-responsive">
+			<h4>Feedback List</h4>
+				<table class="table table-striped table-bordered">
+					<thead>
+					<tr>
+						<th>Feedback Text</th>
+						<th>Q. 1</th>
+						<th>Q. 2</th>
+						<th>Q. 3</th>
+						<th>Q. 4</th>
+						<th>Posted By</th>
+						<th>Posted On</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let post of feeds">
+							<td>{{post.text}}</td>
+							<td>{{post.res1}}</td>
+							<td>{{post.res2}}</td>
+							<td>{{post.res3}}</td>
+							<td>{{post.res4}}</td>
+							<td>{{post.user.name}}</td>
+							<th>{{post.created_at | date:'mediumDate'}}</th>	
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>

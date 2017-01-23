@@ -5,7 +5,7 @@ export class Feedback{
 				public res3: number,
 				public res4: number,
 				public text: string,
-				public user?: number
+				public user?: string
 	) {
 		// code...
 	}

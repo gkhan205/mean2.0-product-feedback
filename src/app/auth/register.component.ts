@@ -13,10 +13,13 @@ export class RegisterComponent implements OnInit {
 	myForm: FormGroup;
 	constructor(private authService: AuthService, private router: Router) { }
 	onSubmit(myForm: FormGroup){
-		const user = new User( this.myForm.value.username, this.myForm.value.password, this.myForm.value.name, this.myForm.value.location );
+		const user = new User( this.myForm.value.username, this.myForm.value.password, this.myForm.value.name, this.myForm.value.location, this.myForm.value.role );
 		this.authService.signup(user)
 			.subscribe(
-				data => {console.log(data); this.router.navigateByUrl('/login'); localStorage.setItem('userId', data.userId); localStorage.setItem('token', data.token);},
+				data => {
+					console.log(data); 
+					this.router.navigateByUrl('/feeds');
+				},
 				error => console.log(error)
 			);
 		this.myForm.reset();
@@ -26,7 +29,8 @@ export class RegisterComponent implements OnInit {
 			name: new FormControl(null, Validators.required),
 			username: new FormControl(null, Validators.required),
 			password: new FormControl(null, Validators.required),
-			location: new FormControl(null, Validators.required)
+			location: new FormControl(null, Validators.required),
+			role: new FormControl(null, Validators.required)
 		});
 	}	
 

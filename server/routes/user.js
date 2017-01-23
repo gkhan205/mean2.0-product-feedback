@@ -5,8 +5,66 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var User = require('../models/user');
 
+router.route('/')
+	.get(function(req, res){
+		User.find(function(err, users){
+			if(err){
+				console.log(err);
+			}
+			return res.status(200).json(users);
+		})
+	});
+
+router.route('/:id')
+	// Get specified user
+	.get(function(req, res){
+		User.findById(req.params.id, function(err, user){
+			if(err){
+				console.log(err);
+			}
+			res.status(200).json(user);
+		});
+	})
+	//updates specified User
+  .put(function(req, res){
+    User.findById(req.params.id, function(err, user){
+      if(err)
+        res.send(err);
+
+       var usernameReq = req.body.username;
+	   var passwordReq = req.body.password;
+	   var nameReq = req.body.name;
+	   var location = req.body.location;
+	   var role = req.body.role;
+
+	   var newuser = new User();
+	   newuser.name = nameReq;
+	   newuser.username = usernameReq;
+	   newuser.password = passwordReq; 
+	   newuser.location = location;
+	   newuser.role = role;
+
+      newuser.save(function(err, user){
+        if(err)
+          res.send(err);
+
+        res.json(user);
+      });
+    });
+  })
+  //deletes the User
+  .delete(function(req, res) {
+    User.remove({
+      _id: req.params.id
+    }, function(err) {
+      if (err)
+        res.send(err);
+      res.json("deleted :(");
+    });
+  });
+
 router.route('/login')
-	.post(function(req, res){
+		.post(function(req, res){
 	 	var nmReq = req.body.username;
 	 	var pwdReq = req.body.password;
 		var loginOutcome;
@@ -38,7 +96,7 @@ router.route('/login')
 						res.status(200).json({
 							message: 'Succesfully Logged In',
 							token: token,
-							userId: userObj._id
+							user: userObj
 						});
 	 				} else{
 						loginOutcome = "Login Failed: Password did not match";
@@ -63,13 +121,14 @@ router.route('/register')
 	   var passwordReq = req.body.password;
 	   var nameReq = req.body.name;
 	   var location = req.body.location;
+	   var role = req.body.role;
 
 	   var newuser = new User();
 	   newuser.name = nameReq;
 	   newuser.username = usernameReq;
 	   newuser.password = passwordReq; 
 	   newuser.location = location;
-	   newuser.admin = false;
+	   newuser.role = role;
 
 	   //save to db through model
 	   newuser.save(function(err, savedUser){
@@ -84,7 +143,7 @@ router.route('/register')
 				res.status(200).json({
 					message: 'Registered Succesfully',
 					token: token,
-					userId: savedUser._id
+					user: savedUser
 				});
 	       }
 	   });

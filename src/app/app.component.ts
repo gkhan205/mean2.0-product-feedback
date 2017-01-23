@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +7,9 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent {
   title = 'Mean Feedback Application';
+
+	isLoggedIn(){
+	    return localStorage.getItem('token') !== null;
+	}
+
 }
