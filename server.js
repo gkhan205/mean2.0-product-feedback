@@ -6,16 +6,27 @@ var session = require('express-session');
 var cookie = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var mongojs = require('mongojs');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/feedback-app', function(err, conn){
+// mongoose.connect('mongodb://localhost/feedback-app', function(err, conn){
+// 	if(err){
+// 		console.log('DB Not Connected');
+// 	} else{
+// 		console.log('DB Connected');
+// 	}
+// });
+
+mongoose.connect('mongodb://feed:feedadmin@ds011963.mlab.com:11963/feedback-app', function(err, conn){
 	if(err){
-		console.log('DB Not Connected');
+		console.log('DB Not Connected ' +err);
 	} else{
 		console.log('DB Connected');
 	}
 });
+
+
 
 var feeds = require('./server/models/feeds');
 var users = require('./server/models/user');
